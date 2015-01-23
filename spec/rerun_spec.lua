@@ -14,7 +14,7 @@ describe("sandpit suite", function()
       for i=1, args.n do
         s = s .. ("%q"):format(tostring(args[i])) .. " "
       end
-      asset.falsy(s)
+      assert.falsy(s)
     end)
   end)
 end)
