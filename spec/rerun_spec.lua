@@ -12,7 +12,7 @@ describe("sandpit suite", function()
     it("what is the args string?", function()
       local s = ""
       for i=1, args.n do
-        s = s .. ("%q"):format(tostring(args[i]) .. " "
+        s = s .. ("%q"):format(tostring(args[i])) .. " "
       end
       asset.falsy(s)
     end)
