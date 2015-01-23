@@ -1,9 +1,20 @@
+local args = { n = select('#', ...), ... }
+print(...)
+
 require("busted")
 
-describe("test suite", function()
-  describe("test", function()
+describe("sandpit suite", function()
+  describe("first test", function()
     it("is ok?", function()
       assert.truthy("Yup.")
+    end)
+
+    it("what is the args string?", function()
+      local s = ""
+      for i=1, args.n do
+        s = s .. ("%q"):format(tostring(args[i]) .. " "
+      end
+      asset.falsy(s)
     end)
   end)
 end)
