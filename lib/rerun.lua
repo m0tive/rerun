@@ -1,6 +1,10 @@
 -- rerun
 
-local lib = {
-}
+local rerun = {}
 
-return lib
+local require = require
+function rerun.require(path)
+  return require(path)
+end
+
+return rerun
