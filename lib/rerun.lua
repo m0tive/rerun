@@ -8,7 +8,19 @@ function rerun.require(path)
     return error(("rerun.require must use dot syntax, %q is invalid"):format(path))
   end
 
-  return rerun.__lua_require(path)
+  local origEnv = getfenv(require)
+  local env = { require = rerun.require }
+  setmetatable(env, {
+    __index = origEnv,
+    __newindex = function(_,k,v) origEnv[k] = v end,
+  })
+
+  local function caller()
+    return rerun.__lua_require(path)
+  end
+
+  setfenv(caller, env)
+  return caller()
 end
 
 return rerun
