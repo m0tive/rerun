@@ -6,12 +6,12 @@ require 'busted'
 
 describe("core suite", function()
   describe("basics", function()
-    it("got rerun?", function()
+    it("exists", function()
       assert.truthy(rerun)
     end)
 
-    it("can require?", function()
-      assert.truthy(rerun.require("testdata"))
+    it("can require a simple file", function()
+      assert.truthy(rerun.require("testdata.basic"))
     end)
   end)
 end)
