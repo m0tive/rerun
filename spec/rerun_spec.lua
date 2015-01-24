@@ -17,5 +17,9 @@ describe("core suite", function()
       -- Paths are not allowed
       assert.error(function() return rerun.require("testdata/basic.lua") end)
     end)
+
+    it("can require a file with inner requires", function()
+      assert.truthy(rerun.require("testdata.nested"))
+    end)
   end)
 end)
