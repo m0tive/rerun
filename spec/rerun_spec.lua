@@ -1,4 +1,4 @@
-package.path = "./lib/?.lua;./?.lua" .. package.path
+package.path = "./lib/?.lua;./spec/?.lua;" .. package.path
 
 local rerun = require 'rerun'
 
