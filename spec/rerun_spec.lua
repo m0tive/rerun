@@ -11,7 +11,11 @@ describe("core suite", function()
     end)
 
     it("can require a simple file", function()
+      -- Dot syntax works
       assert.truthy(rerun.require("testdata.basic"))
+
+      -- Paths are not allowed
+      assert.error(function() return rerun.require("testdata/basic.lua") end)
     end)
   end)
 end)
