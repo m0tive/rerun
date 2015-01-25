@@ -5,11 +5,11 @@ local rerun = {}
 rerun.dependency = {}
 local function add_dependency(path, parent)
   local d = rerun.dependency[path] or {}
-  d[parent] = true
+  if parent then d[parent] = true end
   rerun.dependency[path] = d
 end
 
-local function pack_vararg(...)
+local function pack_varargs(...)
   return {...}, select('#', ...)
 end
 
