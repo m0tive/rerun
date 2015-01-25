@@ -21,10 +21,10 @@ describe("core suite", function()
     it("can require a file with inner requires", function()
       assert.truthy(rerun.require("testdata.nested"))
 
-      assert.are.equal(rerun.dependency, {
+      assert.are.equal({
           ["testdata.nested"] = {},
           ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
-        })
+        }, rerun.dependency)
     end)
   end)
 end)
