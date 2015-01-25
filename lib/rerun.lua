@@ -9,29 +9,25 @@ local function add_dependency(path, parent)
   rerun.dependency[path] = d
 end
 
+local function pack_vararg(...)
+  return {...}, select('#', ...)
+end
+
 rerun.__lua_require = require
-function rerun.require(path, parent)
+function rerun.require(path)
   if path:find("%.lua$") or path:find("[/\\:]") then
     return error(("rerun.require must use dot syntax, %q is invalid"):format(path))
   end
 
-  if parent then
-    add_dependency(path, parent)
-  end
+  -- save dependency
 
-  local origEnv = getfenv(require)
-  local env = { require = function(p) return rerun.require(p, path) end, }
-  setmetatable(env, {
-    __index = origEnv,
-    __newindex = function(_,k,v) origEnv[k] = v end,
-  })
+  -- TODO: modify require
 
-  local function caller()
-    return rerun.__lua_require(path)
-  end
+  local r, n = pack_varargs(rerun.__lua_require(path))
 
-  setfenv(caller, env)
-  return caller()
+  -- restore
+
+  return unpack(r, 1, n)
 end
 
 return rerun
