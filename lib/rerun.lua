@@ -32,6 +32,11 @@ function rerun.current()
   return rerun.stack[#rerun.stack]
 end
 
+function rerun.reset()
+  rerun.dependency = {}
+  rerun.stack = {}
+end
+
 rerun.__lua_require = require
 function rerun.require(path)
   if path:find("%.lua$") or path:find("[/\\:]") then
