@@ -14,13 +14,13 @@ local function pack_vararg(...)
 end
 
 rerun.stack = {}
-local push_stack(path)
+local function push_stack(path)
   local n = #rerun.stack + 1
   rerun.stack[n] = path
   return n
 end
 
-local pop_stack()
+local function pop_stack()
   local n = #rerun.stack
   if n == 0 then return error("Cannot pop empty stack") end
   local r = rerun.stack[n]
@@ -28,7 +28,7 @@ local pop_stack()
   return r
 end
 
-local rerun.current()
+local function rerun.current()
   return rerun.stack[#rerun.stack]
 end
 
