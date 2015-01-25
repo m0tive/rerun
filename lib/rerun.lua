@@ -28,7 +28,7 @@ local function pop_stack()
   return r
 end
 
-local function rerun.current()
+function rerun.current()
   return rerun.stack[#rerun.stack]
 end
 
