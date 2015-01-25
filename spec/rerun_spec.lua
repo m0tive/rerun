@@ -14,6 +14,10 @@ describe("core suite", function()
       -- Dot syntax works
       assert.truthy(rerun.require("testdata.basic"))
 
+      assert.are.equal({
+          ["testdata.basic"] = {},
+        }, rerun.dependency)
+
       -- Paths are not allowed
       assert.error(function() return rerun.require("testdata/basic.lua") end)
     end)
@@ -22,6 +26,7 @@ describe("core suite", function()
       assert.truthy(rerun.require("testdata.nested"))
 
       assert.are.equal({
+          ["testdata.basic"] = {},
           ["testdata.nested"] = {},
           ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
         }, rerun.dependency)
