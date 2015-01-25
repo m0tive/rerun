@@ -14,7 +14,7 @@ describe("core suite", function()
       -- Dot syntax works
       assert.truthy(rerun.require("testdata.basic"))
 
-      assert.are.equal({
+      assert.are.same({
           ["testdata.basic"] = {},
         }, rerun.dependency)
 
@@ -25,7 +25,7 @@ describe("core suite", function()
     it("can require a file with inner requires", function()
       assert.truthy(rerun.require("testdata.nested"))
 
-      assert.are.equal({
+      assert.are.same({
           ["testdata.basic"] = {},
           ["testdata.nested"] = {},
           ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
