@@ -14,8 +14,22 @@ describe("core suite", function()
       -- Dot syntax works
       assert.truthy(rerun.require("testdata.basic"))
 
+      assert.are.same({
+          ["testdata.basic"] = {},
+        }, rerun.dependency)
+
       -- Paths are not allowed
       assert.error(function() return rerun.require("testdata/basic.lua") end)
+    end)
+
+    it("can require a file with inner requires", function()
+      assert.truthy(rerun.require("testdata.nested"))
+
+      assert.are.same({
+          ["testdata.basic"] = {},
+          ["testdata.nested"] = {},
+          ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
+        }, rerun.dependency)
     end)
   end)
 end)
