@@ -50,7 +50,7 @@ describe("core suite", function()
         }, rerun.dependency)
       assert.are.same({}, rerun.stack)
 
-      rerun.clear()
+      rerun.reset()
       assert.truthy(rerun.require("testdata.complex"))
 
       assert.are.same({
@@ -67,7 +67,7 @@ describe("core suite", function()
     end)
 
     it("can list the files dependent on a package", function()
-      rerun.clear()
+      rerun.reset()
       rerun.require("testdata.complex")
 
       assert.are.same({}, rerun.get_dependent("testdata.complex"))
