@@ -46,8 +46,46 @@ describe("core suite", function()
       assert.are.same({
           ["testdata.nested"] = {},
           ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
+          ["testdata.nested_subsub"] = { ["testdata.nested_sub1"] = true, },
         }, rerun.dependency)
       assert.are.same({}, rerun.stack)
+
+      rerun.clear()
+      assert.truthy(rerun.require("testdata.complex"))
+
+      assert.are.same({
+          ["testdata.complex"] = {},
+          ["testdata.basic"] = { ["testdata.complex"] = true, },
+          ["testdata.nested"] = { ["testdata.complex"] = true, },
+          ["testdata.nested_sub1"] = { ["testdata.nested"] = true, },
+          ["testdata.nested_subsub"] = {
+            ["testdata.nested_sub1"] = true,
+            ["testdata.complex"] = true,
+          },
+        }, rerun.dependency)
+      assert.are.same({}, rerun.stack)
+    end)
+
+    it("can list the files dependent on a package", function()
+      rerun.clear()
+      rerun.require("testdata.complex")
+
+      assert.are.same({}, rerun.get_dependent("testdata.complex")
+      assert.are.same({
+          "testdata.complex",
+        }, rerun.get_dependent("testdata.nested"))
+      assert.are.same({
+          "testdata.nested",
+          "testdata.complex",
+        }, rerun.get_dependent("testdata.nested_sub1"))
+      assert.are.same({
+          "testdata.nested_sub1",
+          "testdata.nested",
+          "testdata.complex",
+        }, rerun.get_dependent("testdata.nested_subsub"))
+
+      -- items unknown to rerun should safely return no dependants
+      assert.are.same({}, rerun.get_dependent("testdata.missing")
     end)
   end)
 end)
