@@ -85,7 +85,7 @@ describe("core suite", function()
         }, rerun.get_dependent("testdata.nested_subsub"))
 
       -- items unknown to rerun should safely return no dependants
-      assert.are.same({}, rerun.get_dependent("testdata.missing")
+      assert.are.same({}, rerun.get_dependent("testdata.missing"))
     end)
   end)
 end)
