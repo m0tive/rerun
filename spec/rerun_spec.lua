@@ -70,7 +70,7 @@ describe("core suite", function()
       rerun.clear()
       rerun.require("testdata.complex")
 
-      assert.are.same({}, rerun.get_dependent("testdata.complex")
+      assert.are.same({}, rerun.get_dependent("testdata.complex"))
       assert.are.same({
           "testdata.complex",
         }, rerun.get_dependent("testdata.nested"))
