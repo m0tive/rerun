@@ -40,10 +40,12 @@ end
 local function do_get_dependent(path, r)
   r = r or {}
   local dep = rerun.dependency[path]
-  for k,_ in pairs(dep) do
-    if not r[k] then
-      r[k] = true
-      do_get_dependent(k, r)
+  if dep then
+    for k,_ in pairs(dep) do
+      if not r[k] then
+        r[k] = true
+        do_get_dependent(k, r)
+      end
     end
   end
   return r
