@@ -1,1 +1,1 @@
--- noop
+require 'testdata.nested_subsub'
