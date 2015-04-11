@@ -3,6 +3,4 @@
 
 A Lua module to re-require files automatically.
 
-## Todo
-* ops in a separate file
-* meta methods; flip, rot, const, map, foldl/r
+
