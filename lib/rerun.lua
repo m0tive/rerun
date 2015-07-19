@@ -37,6 +37,30 @@ function rerun.reset()
   rerun.stack = {}
 end
 
+local function do_get_dependent(path, r)
+  r = r or {}
+  local dep = rerun.dependency[path]
+  if dep then
+    for k,_ in pairs(dep) do
+      if not r[k] then
+        r[k] = true
+        do_get_dependent(k, r)
+      end
+    end
+  end
+  return r
+end
+
+function rerun.get_dependent(path)
+  local r = do_get_dependent(path)
+
+  for k,v in pairs(r) do
+    table.insert(r, k)
+    r[k] = nil
+  end
+  return r
+end
+
 rerun.__lua_require = require
 function rerun.require(path)
   if path:find("%.lua$") or path:find("[/\\:]") then
